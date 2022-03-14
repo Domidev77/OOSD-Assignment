@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="462.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Assignment.Gui.UweAccommodationViewController">
+   <children>
+      <TabPane layoutX="2.0" layoutY="43.0" prefHeight="414.0" prefWidth="840.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab closable="false" text="All">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="376.0" prefWidth="793.0">
+                     <children>
+                        <TableView fx:id="tableview" layoutX="14.0" layoutY="5.0" prefHeight="162.0" prefWidth="787.0" style="-fx-border-color: black; -fx-background-color: grey;">
+                           <columns>
+                              <TableColumn fx:id="colLeaseNumber" prefWidth="88.0" text="Lease Number" />
+                              <TableColumn fx:id="colHallName" prefWidth="65.0" text="Hall Name" />
+                              <TableColumn fx:id="colHallNumber" prefWidth="75.0" text="Hall Number" />
+                              <TableColumn fx:id="colRoomNumber" prefWidth="89.0" text="Room Number" />
+                              <TableColumn fx:id="colStudentName" prefWidth="88.0" text="Student Name" />
+                              <TableColumn fx:id="colOccupancyStatus" prefWidth="108.0" text="Occupancy Status" />
+                              <TableColumn fx:id="colCleaningStatus" prefWidth="97.0" text="Cleaning Status" />
+                              <TableColumn fx:id="colRoomPrice" prefWidth="72.0" text="Room Price" />
+                              <TableColumn fx:id="colRoomDescription" prefWidth="103.0" text="Room Description" />
+                           </columns>
+                        </TableView>
+                        <Pane layoutX="15.0" layoutY="177.0" prefHeight="161.0" prefWidth="811.0">
+                           <children>
+                              <Text layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lease Number" />
+                              <Text layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall Name" />
+                              <Text layoutX="14.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall Number" />
+                              <Text layoutX="14.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number" />
+                              <Text layoutX="278.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name" />
+                              <Text layoutX="278.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Occupancy Status" />
+                              <Text layoutX="273.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text layoutX="278.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Price" />
+                              <Text layoutX="565.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Description:" />
+                              <Button layoutX="732.0" layoutY="109.0" mnemonicParsing="false" onAction="#buttonApply" text="Apply" />
+                              <Text layoutX="278.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cleaning Status" />
+                              <TextField fx:id="textLeaseNumber" layoutX="114.0" layoutY="16.0" prefHeight="26.0" prefWidth="140.0" />
+                              <TextField fx:id="textStudentName" layoutX="404.0" layoutY="16.0" prefHeight="26.0" prefWidth="132.0" />
+                              <TextField fx:id="textHallName" layoutX="111.0" layoutY="52.0" prefHeight="26.0" prefWidth="143.0" />
+                              <TextField fx:id="textHallNumber" layoutX="111.0" layoutY="86.0" prefHeight="26.0" prefWidth="142.0" />
+                              <TextField fx:id="textRoomNum" layoutX="111.0" layoutY="118.0" prefHeight="26.0" prefWidth="143.0" />
+                              <TextField fx:id="textRoomPrice" layoutX="405.0" layoutY="122.0" prefHeight="26.0" prefWidth="130.0" />
+                              <TextField fx:id="textRoomDes" layoutX="565.0" layoutY="43.0" prefHeight="55.0" prefWidth="216.0">
+                                 <effect>
+                                    <InnerShadow />
+                                 </effect>
+                              </TextField>
+                              <TextField fx:id="textOccupancyStatus" layoutX="405.0" layoutY="53.0" prefHeight="26.0" prefWidth="132.0" />
+                              <TextField fx:id="textCleaningStatus" layoutX="406.0" layoutY="86.0" prefHeight="26.0" prefWidth="131.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab closable="false" text="Manager">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="376.0" prefWidth="793.0">
+                     <children>
+                        <TableView layoutX="14.0" layoutY="5.0" prefHeight="162.0" prefWidth="813.0" style="-fx-border-color: black; -fx-background-color: grey;">
+                           <columns>
+                              <TableColumn prefWidth="88.0" text="Lease Number" />
+                              <TableColumn prefWidth="65.0" text="Hall Name" />
+                              <TableColumn prefWidth="75.0" text="Hall Number" />
+                              <TableColumn prefWidth="89.0" text="Room Number" />
+                              <TableColumn prefWidth="88.0" text="Student Name" />
+                              <TableColumn prefWidth="108.0" text="Occupancy Status" />
+                              <TableColumn prefWidth="97.0" text="Cleaning Status" />
+                              <TableColumn prefWidth="72.0" text="Room Price" />
+                              <TableColumn prefWidth="103.0" text="Room Description" />
+                           </columns>
+                        </TableView>
+                        <Pane layoutX="14.0" layoutY="178.0" prefHeight="161.0" prefWidth="811.0">
+                           <children>
+                              <Text layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lease Number" />
+                              <Text layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall Name" />
+                              <Text layoutX="14.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall Number" />
+                              <Text layoutX="14.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number" />
+                              <Text layoutX="278.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name" />
+                              <Text layoutX="278.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Occupancy Status" />
+                              <Text layoutX="273.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text layoutX="278.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Price" />
+                              <Text layoutX="582.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Description:" />
+                              <Button layoutX="689.0" layoutY="115.0" mnemonicParsing="false" text="Apply" />
+                              <Text layoutX="278.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cleaning Status" />
+                              <TextField layoutX="114.0" layoutY="16.0" prefHeight="26.0" prefWidth="140.0" style="-fx-border-color: black;" />
+                              <TextField layoutX="404.0" layoutY="16.0" prefHeight="26.0" prefWidth="132.0" />
+                              <TextField layoutX="406.0" layoutY="86.0" prefHeight="26.0" prefWidth="130.0" />
+                              <TextField layoutX="111.0" layoutY="52.0" prefHeight="26.0" prefWidth="143.0" />
+                              <TextField layoutX="111.0" layoutY="86.0" prefHeight="26.0" prefWidth="142.0" />
+                              <TextField layoutX="111.0" layoutY="118.0" prefHeight="26.0" prefWidth="143.0" />
+                              <TextField layoutX="406.0" layoutY="118.0" prefHeight="26.0" prefWidth="130.0" />
+                              <TextField layoutX="582.0" layoutY="43.0" prefHeight="55.0" prefWidth="216.0" style="-fx-border-color: black;">
+                                 <effect>
+                                    <InnerShadow />
+                                 </effect>
+                              </TextField>
+                              <TextField layoutX="404.0" layoutY="53.0" prefHeight="26.0" prefWidth="132.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+          <Tab closable="false" text="Warden">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="376.0" prefWidth="793.0">
+                     <children>
+                        <TableView layoutX="14.0" layoutY="5.0" prefHeight="162.0" prefWidth="813.0" style="-fx-border-color: black; -fx-background-color: grey;">
+                          <columns>
+                            <TableColumn prefWidth="88.0" text="Lease Number" />
+                              <TableColumn prefWidth="65.0" text="Hall Name" />
+                              <TableColumn prefWidth="75.0" text="Hall Number" />
+                              <TableColumn prefWidth="89.0" text="Room Number" />
+                              <TableColumn prefWidth="88.0" text="Student Name" />
+                              <TableColumn prefWidth="108.0" text="Occupancy Status" />
+                              <TableColumn prefWidth="97.0" text="Cleaning Status" />
+                              <TableColumn prefWidth="72.0" text="Room Price" />
+                              <TableColumn prefWidth="103.0" text="Room Description" />
+                          </columns>
+                        </TableView>
+                        <Pane layoutX="14.0" layoutY="178.0" prefHeight="161.0" prefWidth="811.0">
+                           <children>
+                              <Text layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lease Number" />
+                              <Text layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall Name" />
+                              <Text layoutX="14.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall Number" />
+                              <Text layoutX="14.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number" />
+                              <Text layoutX="278.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name" />
+                              <Text layoutX="278.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Occupancy Status" />
+                              <Text layoutX="273.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text layoutX="278.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Price" />
+                              <Text layoutX="582.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Description:" />
+                              <Button layoutX="689.0" layoutY="115.0" mnemonicParsing="false" text="Apply" />
+                              <Text layoutX="278.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cleaning Status" />
+                              <TextField layoutX="114.0" layoutY="16.0" prefHeight="26.0" prefWidth="140.0" style="-fx-border-color: black;" />
+                              <TextField layoutX="404.0" layoutY="16.0" prefHeight="26.0" prefWidth="132.0" />
+                              <TextField layoutX="111.0" layoutY="52.0" prefHeight="26.0" prefWidth="143.0" />
+                              <TextField layoutX="111.0" layoutY="86.0" prefHeight="26.0" prefWidth="142.0" />
+                              <TextField layoutX="111.0" layoutY="118.0" prefHeight="26.0" prefWidth="143.0" />
+                              <TextField layoutX="406.0" layoutY="52.0" prefHeight="26.0" prefWidth="131.0" />
+                              <TextField layoutX="406.0" layoutY="118.0" prefHeight="26.0" prefWidth="130.0" />
+                              <TextField layoutX="582.0" layoutY="43.0" prefHeight="55.0" prefWidth="216.0" style="-fx-border-color: black;">
+                                 <effect>
+                                    <InnerShadow />
+                                 </effect>
+                              </TextField>
+                              <TextField layoutX="404.0" layoutY="87.0" prefHeight="26.0" prefWidth="134.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UWE BRISTOL ACCOMMODATION SYSTEM" />
+   </children>
+</AnchorPane>
