@@ -8,16 +8,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+
+    private static Stage stg;
+
     @Override
-    public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("UweAccommodationView.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("UWE Accommodation System");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws IOException {
+        stg = primaryStage;
+        primaryStage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        Scene scene = new Scene(root,825,450);
+        primaryStage.setTitle("UWE Accommodation System");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void changeScene(String fxml) throws IOException{
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        stg.getScene().setRoot(pane);
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }

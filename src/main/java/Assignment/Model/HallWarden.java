@@ -1,6 +1,6 @@
 package Assignment.Model;
 
-public class HallWarden {
+public class HallWarden extends All {
 
     HallWarden(){
     }

@@ -2,15 +2,13 @@ package Assignment.Gui;
 
 import Assignment.Main;
 import Assignment.Model.Product;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -21,8 +19,9 @@ import java.util.ResourceBundle;
  *
  * @author Domi
  */
-public class UweAccommodationViewController implements Initializable {
+public class WardenViewController implements Initializable {
     //extends Application
+    ObservableList<String> cleaningStatusList = FXCollections.observableArrayList("Clean","Dirty","Offline");
 
     public TableView<Product> tableview;
 
@@ -31,7 +30,8 @@ public class UweAccommodationViewController implements Initializable {
     public TableColumn<Product, Integer> colHallNumber;
     public TableColumn<Product, Integer> colRoomNumber;
     public TableColumn<Product, String> colStudentName;
-    public TableColumn<Product, String> colOccupancyStatus;
+    @FXML
+    private TableColumn<Product, String> colOccupancyStatus;
     public TableColumn<Product, String> colCleaningStatus;
     public TableColumn<Product, String> colRoomPrice;
     public TableColumn<Product, String> colRoomDescription;
@@ -44,20 +44,31 @@ public class UweAccommodationViewController implements Initializable {
     public TextField textRoomDes;
     public TextField textOccupancyStatus;
     public TextField textCleaningStatus;
+    @FXML
     public Button logoutButton;
+    private SimpleObjectProperty<ChoiceBox<String>> myChoiceBox = new SimpleObjectProperty<>(this, "myChoiceBox");
 
+    //private String[] cleaningStatus ={"Clean","Dirty","Offline"};
+
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        myChoiceBox.get().setValue("Clean");
+        myChoiceBox.get().setItems(cleaningStatusList);
+
+
         colLeaseNumber.setCellValueFactory(new PropertyValueFactory<>("LeaseNumber"));
         colHallName.setCellValueFactory(new PropertyValueFactory<>("HallName"));
         colHallNumber.setCellValueFactory(new PropertyValueFactory<>("HallNumber"));
         colRoomNumber.setCellValueFactory(new PropertyValueFactory<>("RoomNumber"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("StudentName"));
-        colOccupancyStatus.setCellValueFactory(new PropertyValueFactory<>("OccupancyStatus"));
+        getColOccupancyStatus().setCellValueFactory(new PropertyValueFactory<>("OccupancyStatus"));
         colCleaningStatus.setCellValueFactory(new PropertyValueFactory<>("CleaningStatus"));
         colRoomPrice.setCellValueFactory(new PropertyValueFactory<>("RoomPrice"));
         colRoomDescription.setCellValueFactory(new PropertyValueFactory<>("RoomDescription"));
         tableview.setItems(observableList);
+
+        tableview.setEditable(true);
 
     }
 
@@ -66,6 +77,10 @@ public class UweAccommodationViewController implements Initializable {
                     "Unavailable", "Clean", 500, "A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
+    /*
+    public void getCleaningStatus(ActionEvent event){
+        String cleaningStatus = myChoiceBox.getValue();
+    }
 
     public void buttonApply(ActionEvent actionEvent) {
         Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
@@ -73,32 +88,24 @@ public class UweAccommodationViewController implements Initializable {
                 Integer.parseInt(textRoomPrice.getText()),textRoomDes.getText());
         tableview.getItems().add(product);
 
+    }*/
+    public void buttonApply(ActionEvent actionEvent) {
+        Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
+                Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),textOccupancyStatus.getText(), myChoiceBox.get().getValue(),
+                Integer.parseInt(textRoomPrice.getText()),textRoomDes.getText());
+        tableview.getItems().add(product);
+
+    }
+
+    public TableColumn<Product, String> getColOccupancyStatus() {
+        return colOccupancyStatus;
+    }
+
+    public void setColOccupancyStatus(TableColumn<Product, String> colOccupancyStatus) {
+        this.colOccupancyStatus = colOccupancyStatus;
     }
     public void logoutButton(ActionEvent event)throws IOException {
         Main m = new Main();
         m.changeScene("LoginPage.fxml");
     }
-
 }
-    /*public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("UweAccommodationView.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
-    }
-    /*public void buttonAdd(ActionEvent actionEvent){
-
-        //Product product = new Product(Hall );
-    }
-
-
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String[] args) {
-        launch(args);
-    }
-
-};*/

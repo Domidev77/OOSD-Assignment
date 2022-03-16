@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +22,7 @@ import java.util.ResourceBundle;
  *
  * @author Domi
  */
-public class UweAccommodationViewController implements Initializable {
+public class ManagerViewController implements Initializable {
     //extends Application
 
     public TableView<Product> tableview;
@@ -31,7 +32,8 @@ public class UweAccommodationViewController implements Initializable {
     public TableColumn<Product, Integer> colHallNumber;
     public TableColumn<Product, Integer> colRoomNumber;
     public TableColumn<Product, String> colStudentName;
-    public TableColumn<Product, String> colOccupancyStatus;
+    @FXML
+    private TableColumn<Product, String> colOccupancyStatus;
     public TableColumn<Product, String> colCleaningStatus;
     public TableColumn<Product, String> colRoomPrice;
     public TableColumn<Product, String> colRoomDescription;
@@ -44,7 +46,7 @@ public class UweAccommodationViewController implements Initializable {
     public TextField textRoomDes;
     public TextField textOccupancyStatus;
     public TextField textCleaningStatus;
-    public Button logoutButton;
+    public Button buttonLogout;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +61,8 @@ public class UweAccommodationViewController implements Initializable {
         colRoomDescription.setCellValueFactory(new PropertyValueFactory<>("RoomDescription"));
         tableview.setItems(observableList);
 
+        tableview.setEditable(true);
+        colOccupancyStatus.setCellFactory(TextFieldTableCell.forTableColumn());
     }
 
     ObservableList<Product> observableList = FXCollections.observableArrayList(
@@ -74,31 +78,22 @@ public class UweAccommodationViewController implements Initializable {
         tableview.getItems().add(product);
 
     }
+    /*
+    public TableColumn<Product, String> getColOccupancyStatus() {
+        return colOccupancyStatus;
+    }
+
+    public void setColOccupancyStatus(TableColumn<Product, String> colOccupancyStatus) {
+        this.colOccupancyStatus = colOccupancyStatus;
+    }
+    */
     public void logoutButton(ActionEvent event)throws IOException {
         Main m = new Main();
         m.changeScene("LoginPage.fxml");
     }
 
+    public void onEditChanged(TableColumn.CellEditEvent<Product, String> productStringCellEditEvent) {
+        Product product = tableview.getSelectionModel().getSelectedItem();
+        product.setOccupancyStatus(productStringCellEditEvent.getNewValue());
+    }
 }
-    /*public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("UweAccommodationView.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
-    }
-    /*public void buttonAdd(ActionEvent actionEvent){
-
-        //Product product = new Product(Hall );
-    }
-
-
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String[] args) {
-        launch(args);
-    }
-
-};*/
