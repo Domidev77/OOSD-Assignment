@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ import java.util.ResourceBundle;
 public class WardenViewController implements Initializable {
     //extends Application
     ObservableList<String> cleaningStatusList = FXCollections.observableArrayList("Clean","Dirty","Offline");
+    ObservableList<String> occupancyStatusList = FXCollections.observableArrayList("Available", "Unavailable");
 
     public TableView<Product> tableview;
 
@@ -43,18 +45,18 @@ public class WardenViewController implements Initializable {
     public TextField textRoomPrice;
     public TextField textRoomDes;
     public TextField textOccupancyStatus;
-    public TextField textCleaningStatus;
+    public ChoiceBox cleaningStatusChoiceBox;
     @FXML
     public Button logoutButton;
-    private SimpleObjectProperty<ChoiceBox<String>> myChoiceBox = new SimpleObjectProperty<>(this, "myChoiceBox");
+
 
     //private String[] cleaningStatus ={"Clean","Dirty","Offline"};
-
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        myChoiceBox.get().setValue("Clean");
-        myChoiceBox.get().setItems(cleaningStatusList);
+        cleaningStatusChoiceBox.getItems().addAll(cleaningStatusList);
+
+
 
 
         colLeaseNumber.setCellValueFactory(new PropertyValueFactory<>("LeaseNumber"));
@@ -62,25 +64,51 @@ public class WardenViewController implements Initializable {
         colHallNumber.setCellValueFactory(new PropertyValueFactory<>("HallNumber"));
         colRoomNumber.setCellValueFactory(new PropertyValueFactory<>("RoomNumber"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("StudentName"));
-        getColOccupancyStatus().setCellValueFactory(new PropertyValueFactory<>("OccupancyStatus"));
+        colOccupancyStatus.setCellValueFactory(new PropertyValueFactory<>("OccupancyStatus"));
         colCleaningStatus.setCellValueFactory(new PropertyValueFactory<>("CleaningStatus"));
         colRoomPrice.setCellValueFactory(new PropertyValueFactory<>("RoomPrice"));
         colRoomDescription.setCellValueFactory(new PropertyValueFactory<>("RoomDescription"));
         tableview.setItems(observableList);
 
         tableview.setEditable(true);
+        colCleaningStatus.setCellFactory(ChoiceBoxTableCell.forTableColumn());
+
+        tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedNewTableRow(newSelection);
+            }
+        });
+
+    }
+
+    public void selectedNewTableRow(Product row){
+        textLeaseNumber.setText(String.valueOf(row.getLeaseNumber()));
+        textHallName.setText(row.getHallName());
+        textHallNumber.setText(String.valueOf(row.getHallNumber()));
+        textRoomNum.setText(String.valueOf(row.getRoomNumber()));
+        textStudentName.setText(row.getStudentName());
+        textOccupancyStatus.setText(row.getOccupancyStatus());
+        cleaningStatusChoiceBox.setValue(row.getCleaningStatus());
+        textRoomPrice.setText(String.valueOf(row.getRoomPrice()));
+        textRoomDes.setText(row.getRoomDescription());
 
     }
 
     ObservableList<Product> observableList = FXCollections.observableArrayList(
             new Product(1, "WallCourt", 2, 1, "Albert Bielecki",
-                    "Unavailable", "Clean", 500, "A single room with a bed, wardrobe" +
+                    "Occupied", "Clean", 500, "A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(2,"WallCourt",2,2,"Tom Smith",
+                    "Occupied","Clean",550,"A single room with a bed" +
+                    "desk and chair and a window view"),
+            new Product(3,"WallCourt",2,3,"Kate Jones",
+                    "Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"WallCourt", 2,3,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
+
     /*
-    public void getCleaningStatus(ActionEvent event){
-        String cleaningStatus = myChoiceBox.getValue();
-    }
 
     public void buttonApply(ActionEvent actionEvent) {
         Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
@@ -91,21 +119,24 @@ public class WardenViewController implements Initializable {
     }*/
     public void buttonApply(ActionEvent actionEvent) {
         Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
-                Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),textOccupancyStatus.getText(), myChoiceBox.get().getValue(),
-                Integer.parseInt(textRoomPrice.getText()),textRoomDes.getText());
+                Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),textOccupancyStatus.getText(), cleaningStatusChoiceBox.getValue().toString(),
+                Double.parseDouble(textRoomPrice.getText()),textRoomDes.getText());
         tableview.getItems().add(product);
 
+        tableview.getSelectionModel().clearSelection();
     }
 
     public TableColumn<Product, String> getColOccupancyStatus() {
         return colOccupancyStatus;
     }
 
-    public void setColOccupancyStatus(TableColumn<Product, String> colOccupancyStatus) {
-        this.colOccupancyStatus = colOccupancyStatus;
-    }
     public void logoutButton(ActionEvent event)throws IOException {
         Main m = new Main();
         m.changeScene("LoginPage.fxml");
+    }
+    public void onEditChanged(TableColumn.CellEditEvent<Product, String> productStringCellEditEvent) {
+        Product product = tableview.getSelectionModel().getSelectedItem();
+        product.setCleaningStatus(productStringCellEditEvent.getNewValue());
+
     }
 }
