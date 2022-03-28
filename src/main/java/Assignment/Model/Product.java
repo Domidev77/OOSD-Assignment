@@ -15,7 +15,7 @@ public class Product {
     private SimpleDoubleProperty roomPrice;
     private SimpleStringProperty roomDescription;
 
-    public Product(int leaseNumber, String hallName, int hallNumber, int roomNumber, String studentName, String occupancyStatus, String cleaningStatus, double roomPrice, String roomDescription) {
+    public Product(Integer leaseNumber, String hallName, int hallNumber, int roomNumber, String studentName, String occupancyStatus, String cleaningStatus, double roomPrice, String roomDescription) {
         this.leaseNumber = new SimpleIntegerProperty(leaseNumber);
         this.hallName = new SimpleStringProperty(hallName);
         this.hallNumber = new SimpleIntegerProperty(hallNumber);
@@ -27,11 +27,11 @@ public class Product {
         this.roomDescription = new SimpleStringProperty(roomDescription);
     }
 
-    public int getLeaseNumber() {
+    public Integer getLeaseNumber() {
         return leaseNumber.get();
     }
 
-    public void setLeaseNumber(int leaseNumber) {
+    public void setLeaseNumber(Integer leaseNumber) {
         this.leaseNumber = new SimpleIntegerProperty(leaseNumber);;
     }
 

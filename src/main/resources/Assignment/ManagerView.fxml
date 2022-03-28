@@ -4,8 +4,8 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -45,14 +45,10 @@
                 <TextField fx:id="textHallNumber" layoutX="111.0" layoutY="86.0" prefHeight="26.0" prefWidth="142.0" />
                 <TextField fx:id="textRoomNum" layoutX="111.0" layoutY="118.0" prefHeight="26.0" prefWidth="143.0" />
                 <TextField fx:id="textRoomPrice" layoutX="405.0" layoutY="122.0" prefHeight="26.0" prefWidth="130.0" />
-                <TextField fx:id="textRoomDes" layoutX="567.0" layoutY="44.0" prefHeight="55.0" prefWidth="216.0">
-                    <effect>
-                        <InnerShadow />
-                    </effect>
-                </TextField>
                 <TextField fx:id="textCleaningStatus" editable="false" layoutX="406.0" layoutY="86.0" prefHeight="26.0" prefWidth="131.0" />
             <ChoiceBox fx:id="occupancyStatusChoiceBox" layoutX="405.0" layoutY="53.0" prefHeight="25.0" prefWidth="132.0" />
             <Button fx:id="buttonDelete" layoutX="641.0" layoutY="119.0" mnemonicParsing="false" onAction="#deleteButton" text="Delete" />
+            <TextArea fx:id="textRoomDes" layoutX="577.0" layoutY="40.0" prefHeight="62.0" prefWidth="173.0" />
             </children>
         </Pane>
         <Text layoutX="219.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UWE BRISTOL ACCOMMODATION SYSTEM - MANAGER VIEW">
@@ -60,7 +56,6 @@
                 <Font size="15.0" />
             </font></Text>
       <Button fx:id="buttonLogout" layoutX="711.0" layoutY="11.0" mnemonicParsing="false" onAction="#logoutButton" text="Log out" />
-      <Button mnemonicParsing="false" text="Button" />
 
     </children>
 

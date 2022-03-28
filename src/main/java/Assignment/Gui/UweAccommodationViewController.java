@@ -5,11 +5,14 @@ import Assignment.Model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,6 +51,8 @@ public class UweAccommodationViewController implements Initializable {
     @FXML
     public Button buttonLogout;
 
+    private TableRow<Product> selectedRow;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cleaningStatusChoiceBox.getItems().addAll(cleaningStatusList);
@@ -68,13 +73,73 @@ public class UweAccommodationViewController implements Initializable {
         colOccupancyStatus.setCellFactory(ChoiceBoxTableCell.forTableColumn());
         colCleaningStatus.setCellFactory(ChoiceBoxTableCell.forTableColumn());
 
-        tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                selectedNewTableRow(newSelection);
+        tableview.setRowFactory(new Callback<TableView<Product>, TableRow<Product>>() {
+            @Override
+            public TableRow<Product> call(TableView<Product> productTableView) {
+                final TableRow<Product> row = new TableRow<>();
+
+                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        final int i = row.getIndex();
+
+                        // If user clicked on selected row within range
+                        if (i >= 0 && i < tableview.getItems().size() && tableview.getSelectionModel().isSelected(i)) {
+
+                            tableview.getSelectionModel().clearSelection();
+                            clearDisplayedItems();
+                            mouseEvent.consume();
+                        }
+                        // If user clicked on unselected row within range
+                        else if (i >= 0 && i < tableview.getItems().size()) {
+                            processSelectedRow(row);
+                        }
+                    }
+                });
+                return row;
             }
         });
 
     }
+    public void processSelectedRow(TableRow<Product> row) {
+        selectedRow = row;
+        Product product = row.getItem();
+
+        textLeaseNumber.setText(String.valueOf(product.getLeaseNumber()));
+        textHallName.setText(product.getHallName());
+        textHallNumber.setText(String.valueOf(product.getHallNumber()));
+        textRoomNum.setText(String.valueOf(product.getRoomNumber()));
+        textStudentName.setText(product.getStudentName());
+        occupancyStatusChoiceBox.setValue(product.getOccupancyStatus());
+        cleaningStatusChoiceBox.setValue(product.getCleaningStatus());
+        textRoomPrice.setText(String.valueOf(product.getRoomPrice()));
+        textRoomDes.setText(product.getRoomDescription());
+
+        if (product.getCleaningStatus() == "Offline"){
+            textLeaseNumber.setDisable(true);
+            textStudentName.setDisable(true);
+        }
+        else if(product.getOccupancyStatus() == ""){
+
+        }
+    }
+
+    public void clearDisplayedItems() {
+        selectedRow = null;
+
+        textLeaseNumber.setText("");
+        textHallName.setText("");
+        textHallNumber.setText("");
+        textRoomNum.setText("");
+        textStudentName.setText("");
+        occupancyStatusChoiceBox.setValue("");
+        cleaningStatusChoiceBox.setValue("");
+        textRoomPrice.setText("");
+        textRoomDes.setText("");
+        textLeaseNumber.setDisable(false);
+        textStudentName.setDisable(false);
+    }
+
 
     public void selectedNewTableRow(Product row){
         textLeaseNumber.setText(String.valueOf(row.getLeaseNumber()));
@@ -121,4 +186,11 @@ public class UweAccommodationViewController implements Initializable {
 
     }
 
+    public TableRow<Product> getSelectedRow() {
+        return selectedRow;
+    }
+
+    public void setSelectedRow(TableRow<Product> selectedRow) {
+        this.selectedRow = selectedRow;
+    }
 }
