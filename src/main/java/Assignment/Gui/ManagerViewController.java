@@ -71,17 +71,6 @@ public class ManagerViewController implements Initializable {
         colOccupancyStatus.setCellFactory(TextFieldTableCell.forTableColumn());
         textRoomDes.setWrapText(true);
 
-        //tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-        //    if (newSelection != null) {
-
-
-                //newSelection.
-
-                //selectedRoom = newSelection;
-                //selectedNewTableRow(selectedRoom);
-        //    }
-        //});
-
         tableview.setRowFactory(new Callback<TableView<Product>, TableRow<Product>>() {
             @Override
             public TableRow<Product> call(TableView<Product> productTableView) {
@@ -125,14 +114,21 @@ public class ManagerViewController implements Initializable {
         textRoomDes.setText(product.getRoomDescription());
         textHallName.setDisable(true);
         textHallNumber.setDisable(true);
+        textRoomNum.setDisable(true);
+        textRoomPrice.setDisable(true);
 
         if (product.getCleaningStatus() == "Offline"){
             textLeaseNumber.setDisable(true);
             textStudentName.setDisable(true);
+            occupancyStatusChoiceBox.setDisable(true);
         }
-        else if(product.getOccupancyStatus() == ""){
+        else {
+            textLeaseNumber.setDisable(false);
+            textStudentName.setDisable(false);
+            occupancyStatusChoiceBox.setDisable(false);
 
         }
+
     }
 
     public void clearDisplayedItems() {
@@ -147,8 +143,7 @@ public class ManagerViewController implements Initializable {
         textCleaningStatus.setText("");
         textRoomPrice.setText("");
         textRoomDes.setText("");
-        textLeaseNumber.setDisable(false);
-        textStudentName.setDisable(false);
+
     }
 
     public void buttonApply(ActionEvent actionEvent) {
@@ -171,6 +166,7 @@ public class ManagerViewController implements Initializable {
         product.setOccupancyStatus("Unoccupied");
 
         tableview.getItems().set(selectedRow.getIndex(), product);
+        clearDisplayedItems();
     }
 
     /*
@@ -205,7 +201,21 @@ public class ManagerViewController implements Initializable {
             new Product(3,"WallCourt",2,3,"Kate Jones",
                     "Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"WallCourt", 2,3,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"WallCourt", 2,4,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(4,"WallCourt", 2,5,"Connor Miller","Occupied","Dirty",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"WallCourt", 2,7,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(10,"Waterside", 3,1,"Kim Perry","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,2,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(20,"Waterside", 3,3,"John Crown","Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
 }

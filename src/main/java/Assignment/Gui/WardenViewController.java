@@ -121,7 +121,15 @@ public class WardenViewController implements Initializable {
         textOccupancyStatus.setText(product.getOccupancyStatus());
         textRoomPrice.setText(String.valueOf(product.getRoomPrice()));
         textRoomDes.setText(product.getRoomDescription());
-        
+        textLeaseNumber.setDisable(true);
+        textStudentName.setDisable(true);
+        textRoomNum.setDisable(true);
+        textHallNumber.setDisable(true);
+        textHallName.setDisable(true);
+
+        if(product.getOccupancyStatus() == "Occupied"){
+
+        }
     }
 
     public void clearDisplayedItems() {
@@ -136,8 +144,8 @@ public class WardenViewController implements Initializable {
         cleaningStatusChoiceBox.setValue("");
         textRoomPrice.setText("");
         textRoomDes.setText("");
-        textLeaseNumber.setDisable(false);
-        textStudentName.setDisable(false);
+
+
     }
 
     public void selectedNewTableRow(Product row){
@@ -154,7 +162,7 @@ public class WardenViewController implements Initializable {
     }
 
     ObservableList<Product> observableList = FXCollections.observableArrayList(
-            new Product(1, "WallCourt", 2, 1, "Albert Bielecki",
+            new Product(1, "WallCourt", 2, 1, "Albert Dover",
                     "Occupied", "Clean", 500, "A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(2,"WallCourt",2,2,"Tom Smith",
@@ -164,18 +172,25 @@ public class WardenViewController implements Initializable {
                     "Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"WallCourt", 2,3,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(4,"WallCourt", 2,5,"Connor Miller","Occupied","Dirty",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"WallCourt", 2,7,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(10,"Waterside", 3,1,"Kim Perry","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,2,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(20,"Waterside", 3,3,"John Crown","Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
 
-    /*
 
-    public void buttonApply(ActionEvent actionEvent) {
-        Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
-                Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),textOccupancyStatus.getText(),textCleaningStatus.getText(),
-                Integer.parseInt(textRoomPrice.getText()),textRoomDes.getText());
-        tableview.getItems().add(product);
 
-    }*/
     public void buttonApply(ActionEvent actionEvent) {
         Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
                 Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),textOccupancyStatus.getText(), cleaningStatusChoiceBox.getValue().toString(),
@@ -183,6 +198,7 @@ public class WardenViewController implements Initializable {
         tableview.getItems().add(product);
 
         tableview.getSelectionModel().clearSelection();
+        clearDisplayedItems();
     }
 
     public TableColumn<Product, String> getColOccupancyStatus() {

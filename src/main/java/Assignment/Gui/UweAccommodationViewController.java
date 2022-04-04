@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  */
 public class UweAccommodationViewController implements Initializable {
     //extends Application
-    ObservableList<String> occupancyStatusList = FXCollections.observableArrayList("Available", "Unavailable");
+    ObservableList<String> occupancyStatusList = FXCollections.observableArrayList("Unoccupied", "Occupied");
     ObservableList<String> cleaningStatusList = FXCollections.observableArrayList("Clean","Dirty","Offline");
 
     public TableView<Product> tableview;
@@ -44,7 +44,7 @@ public class UweAccommodationViewController implements Initializable {
     public TextField textHallNumber;
     public TextField textRoomNum;
     public TextField textRoomPrice;
-    public TextField textRoomDes;
+    public TextArea textRoomDes;
     @FXML
     public ChoiceBox occupancyStatusChoiceBox;
     public ChoiceBox cleaningStatusChoiceBox;
@@ -72,6 +72,7 @@ public class UweAccommodationViewController implements Initializable {
         tableview.setEditable(true);
         colOccupancyStatus.setCellFactory(ChoiceBoxTableCell.forTableColumn());
         colCleaningStatus.setCellFactory(ChoiceBoxTableCell.forTableColumn());
+        textRoomDes.setWrapText(true);
 
         tableview.setRowFactory(new Callback<TableView<Product>, TableRow<Product>>() {
             @Override
@@ -114,12 +115,19 @@ public class UweAccommodationViewController implements Initializable {
         cleaningStatusChoiceBox.setValue(product.getCleaningStatus());
         textRoomPrice.setText(String.valueOf(product.getRoomPrice()));
         textRoomDes.setText(product.getRoomDescription());
+        textHallNumber.setDisable(true);
+        textHallName.setDisable(true);
+        textRoomNum.setDisable(true);
 
         if (product.getCleaningStatus() == "Offline"){
             textLeaseNumber.setDisable(true);
             textStudentName.setDisable(true);
+            occupancyStatusChoiceBox.setDisable(true);
         }
-        else if(product.getOccupancyStatus() == ""){
+        else {
+            textLeaseNumber.setDisable(false);
+            textStudentName.setDisable(false);
+            occupancyStatusChoiceBox.setDisable(false);
 
         }
     }
@@ -136,8 +144,7 @@ public class UweAccommodationViewController implements Initializable {
         cleaningStatusChoiceBox.setValue("");
         textRoomPrice.setText("");
         textRoomDes.setText("");
-        textLeaseNumber.setDisable(false);
-        textStudentName.setDisable(false);
+
     }
 
 
@@ -155,7 +162,7 @@ public class UweAccommodationViewController implements Initializable {
     }
 
     ObservableList<Product> observableList = FXCollections.observableArrayList(
-            new Product(1, "WallCourt", 2, 1, "Albert Bielecki",
+            new Product(1, "WallCourt", 2, 1, "Albert Duff",
                     "Occupied", "Clean", 500, "A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(2,"WallCourt",2,2,"Tom Smith",
@@ -165,8 +172,24 @@ public class UweAccommodationViewController implements Initializable {
                     "Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"WallCourt", 2,3,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
-            "and a desk and chair")
+            "and a desk and chair"),
+            new Product(4,"WallCourt", 2,5,"Connor Miller","Occupied","Dirty",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"WallCourt", 2,7,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(10,"Waterside", 3,1,"Kim Perry","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,2,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(20,"Waterside", 3,3,"John Crown","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair")
     );
+
+
 
     public void buttonApply(ActionEvent actionEvent) {
         Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
@@ -174,7 +197,25 @@ public class UweAccommodationViewController implements Initializable {
                 Integer.parseInt(textRoomPrice.getText()),textRoomDes.getText());
         tableview.getItems().add(product);
 
+        tableview.getSelectionModel().clearSelection();
+        clearDisplayedItems();
+
     }
+
+    public void deleteButton(ActionEvent event) {
+        textStudentName.clear();
+        textLeaseNumber.clear();
+        occupancyStatusChoiceBox.setValue("Unoccupied");
+
+        Product product = selectedRow.getItem();
+        product.setLeaseNumber(0);
+        product.setStudentName("");
+        product.setOccupancyStatus("Unoccupied");
+
+        tableview.getItems().set(selectedRow.getIndex(), product);
+        clearDisplayedItems();
+    }
+
     public void logoutButton(ActionEvent event)throws IOException {
         Main m = new Main();
         m.changeScene("LoginPage.fxml");
