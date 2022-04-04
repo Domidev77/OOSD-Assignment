@@ -68,6 +68,7 @@ public class ManagerViewController implements Initializable {
         tableview.setEditable(true);
         colOccupancyStatus.setCellFactory(TextFieldTableCell.forTableColumn());
         textRoomDes.setWrapText(true);
+        textCleaningStatus.setDisable(true);
 
         tableview.setRowFactory(productTableView -> {
             final TableRow<Product> row = new TableRow<>();
@@ -132,7 +133,7 @@ public class ManagerViewController implements Initializable {
         textRoomNum.setText("");
         textStudentName.setText("");
         occupancyStatusChoiceBox.setValue("");
-        textCleaningStatus.setText("Dirty");
+        textCleaningStatus.setText("");
         textRoomPrice.setText("");
         textRoomDes.setText("");
 

@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
 public class WardenViewController implements Initializable {
     //extends Application
     ObservableList<String> cleaningStatusList = FXCollections.observableArrayList("Clean","Dirty","Offline");
+    ObservableList<String> cleaningStatusOccupiedList = FXCollections.observableArrayList("Clean","Dirty");
+
     ObservableList<String> occupancyStatusList = FXCollections.observableArrayList("Available", "Unavailable");
 
     public TableView<Product> tableview;
@@ -52,14 +55,10 @@ public class WardenViewController implements Initializable {
     private TableRow<Product> selectedRow;
 
 
-    //private String[] cleaningStatus ={"Clean","Dirty","Offline"};
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cleaningStatusChoiceBox.getItems().addAll(cleaningStatusList);
-
-
-
 
         colLeaseNumber.setCellValueFactory(new PropertyValueFactory<>("LeaseNumber"));
         colHallName.setCellValueFactory(new PropertyValueFactory<>("HallName"));
@@ -75,6 +74,7 @@ public class WardenViewController implements Initializable {
         tableview.setEditable(true);
         colCleaningStatus.setCellFactory(ChoiceBoxTableCell.forTableColumn());
         textRoomDes.setWrapText(true);
+        textOccupancyStatus.setDisable(true);
 
         tableview.setRowFactory(productTableView -> {
             final TableRow<Product> row = new TableRow<>();
@@ -103,6 +103,14 @@ public class WardenViewController implements Initializable {
         selectedRow = row;
         Product product = row.getItem();
 
+        if(product.getOccupancyStatus() == "Occupied"){
+
+            cleaningStatusChoiceBox.getItems().setAll(cleaningStatusOccupiedList);
+        }
+        else {
+            cleaningStatusChoiceBox.getItems().setAll(cleaningStatusList);
+        }
+
         textLeaseNumber.setText(String.valueOf(product.getLeaseNumber()));
         textHallName.setText(product.getHallName());
         textHallNumber.setText(String.valueOf(product.getHallNumber()));
@@ -118,10 +126,6 @@ public class WardenViewController implements Initializable {
         textHallNumber.setDisable(true);
         textHallName.setDisable(true);
         textRoomPrice.setDisable(true);
-
-        if(product.getOccupancyStatus() == "Occupied"){
-
-        }
     }
 
     public void clearDisplayedItems() {
@@ -136,8 +140,6 @@ public class WardenViewController implements Initializable {
         cleaningStatusChoiceBox.setValue("");
         textRoomPrice.setText("");
         textRoomDes.setText("");
-
-
     }
 
     public void selectedNewTableRow(Product row){
@@ -150,7 +152,6 @@ public class WardenViewController implements Initializable {
         cleaningStatusChoiceBox.setValue(row.getCleaningStatus());
         textRoomPrice.setText(String.valueOf(row.getRoomPrice()));
         textRoomDes.setText(row.getRoomDescription());
-
     }
 
     ObservableList<Product> observableList = FXCollections.observableArrayList(

@@ -45,7 +45,7 @@
                 <TextField fx:id="textHallNumber" layoutX="111.0" layoutY="86.0" prefHeight="26.0" prefWidth="142.0" />
                 <TextField fx:id="textRoomNum" layoutX="111.0" layoutY="118.0" prefHeight="26.0" prefWidth="143.0" />
                 <TextField fx:id="textRoomPrice" layoutX="405.0" layoutY="122.0" prefHeight="26.0" prefWidth="130.0" />
-                <TextField fx:id="textCleaningStatus" editable="false" layoutX="406.0" layoutY="86.0" prefHeight="26.0" prefWidth="131.0" />
+                <TextField fx:id="textCleaningStatus" layoutX="406.0" layoutY="86.0" prefHeight="26.0" prefWidth="131.0" />
             <ChoiceBox fx:id="occupancyStatusChoiceBox" layoutX="405.0" layoutY="53.0" prefHeight="25.0" prefWidth="132.0" />
             <Button fx:id="buttonDelete" layoutX="641.0" layoutY="119.0" mnemonicParsing="false" onAction="#deleteButton" text="Delete" />
             <TextArea fx:id="textRoomDes" layoutX="577.0" layoutY="40.0" prefHeight="62.0" prefWidth="173.0" />

@@ -47,8 +47,8 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Button fx:id="buttonLogin" layoutX="192.0" layoutY="301.0" mnemonicParsing="false" onAction="#loginButton" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: GOLD;" text="LOG IN" />
             <PasswordField fx:id="password" layoutX="58.0" layoutY="250.0" prefHeight="25.0" prefWidth="209.0" promptText="Password" />
+            <Button fx:id="buttonLogin" layoutX="192.0" layoutY="301.0" mnemonicParsing="false" onAction="#processActionEvent" onKeyPressed="#processKeyboardPressed" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: GOLD;" text="LOG IN" />
             <Label fx:id="wrongLogin" layoutX="76.0" layoutY="27.0" prefHeight="17.0" prefWidth="73.0" textFill="#0d0d0d" />
          </children>
       </AnchorPane>

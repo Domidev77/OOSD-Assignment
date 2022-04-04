@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
@@ -24,11 +26,17 @@ public class LoginController {
     public LoginController(){
     }
 
-    public void loginButton(ActionEvent event)throws IOException {
-        checkLogin();
+    public void processActionEvent(ActionEvent event) throws IOException {
+        processLogin();
     }
 
-    public void checkLogin()throws IOException{
+    public void processKeyboardPressed(KeyEvent keyEvent) throws IOException {
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            processLogin();
+        }
+    }
+
+    public void processLogin() throws IOException{
         Main m = new Main();
         if(username.getText().toString().equals("Warden") && password.getText().toString().equals("123")){
             wrongLogin.setText("Success!");
@@ -51,7 +59,5 @@ public class LoginController {
         else {
             wrongLogin.setText("Wrong username or password!");
         }
-
-
     }
 }

@@ -22,8 +22,10 @@ import java.util.ResourceBundle;
  */
 public class UweAccommodationViewController implements Initializable {
     //extends Application
-    ObservableList<String> occupancyStatusList = FXCollections.observableArrayList("Unoccupied", "Occupied");
     ObservableList<String> cleaningStatusList = FXCollections.observableArrayList("Clean","Dirty","Offline");
+    ObservableList<String> cleaningStatusOccupiedList = FXCollections.observableArrayList("Clean","Dirty");
+
+    ObservableList<String> occupancyStatusList = FXCollections.observableArrayList("Unoccupied", "Occupied");
 
     public TableView<Product> tableview;
 
@@ -96,6 +98,14 @@ public class UweAccommodationViewController implements Initializable {
     public void processSelectedRow(TableRow<Product> row) {
         selectedRow = row;
         Product product = row.getItem();
+
+        if(product.getOccupancyStatus() == "Occupied"){
+
+            cleaningStatusChoiceBox.getItems().setAll(cleaningStatusOccupiedList);
+        }
+        else {
+            cleaningStatusChoiceBox.getItems().setAll(cleaningStatusList);
+        }
 
         textLeaseNumber.setText(String.valueOf(product.getLeaseNumber()));
         textHallName.setText(product.getHallName());
