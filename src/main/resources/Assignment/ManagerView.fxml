@@ -39,12 +39,12 @@
                 <Text layoutX="582.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Description:" />
                 <Button layoutX="715.0" layoutY="118.0" mnemonicParsing="false" onAction="#buttonApply" text="Apply" />
                 <Text layoutX="278.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cleaning Status" />
-                <TextField fx:id="textLeaseNumber" layoutX="114.0" layoutY="16.0" prefHeight="26.0" prefWidth="140.0" />
+                <TextField fx:id="textLeaseNumber" layoutX="111.0" layoutY="16.0" prefHeight="26.0" prefWidth="143.0" />
                 <TextField fx:id="textStudentName" layoutX="404.0" layoutY="16.0" prefHeight="26.0" prefWidth="132.0" />
                 <TextField fx:id="textHallName" layoutX="111.0" layoutY="52.0" prefHeight="26.0" prefWidth="143.0" />
-                <TextField fx:id="textHallNumber" layoutX="111.0" layoutY="86.0" prefHeight="26.0" prefWidth="142.0" />
+                <TextField fx:id="textHallNumber" layoutX="110.0" layoutY="86.0" prefHeight="26.0" prefWidth="143.0" />
                 <TextField fx:id="textRoomNum" layoutX="111.0" layoutY="118.0" prefHeight="26.0" prefWidth="143.0" />
-                <TextField fx:id="textRoomPrice" layoutX="405.0" layoutY="122.0" prefHeight="26.0" prefWidth="130.0" />
+                <TextField fx:id="textRoomPrice" layoutX="405.0" layoutY="122.0" prefHeight="26.0" prefWidth="132.0" />
                 <TextField fx:id="textCleaningStatus" layoutX="406.0" layoutY="86.0" prefHeight="26.0" prefWidth="131.0" />
             <ChoiceBox fx:id="occupancyStatusChoiceBox" layoutX="405.0" layoutY="53.0" prefHeight="25.0" prefWidth="132.0" />
             <Button fx:id="buttonDelete" layoutX="641.0" layoutY="119.0" mnemonicParsing="false" onAction="#deleteButton" text="Delete" />

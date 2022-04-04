@@ -11,10 +11,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 /**
  *
@@ -57,6 +60,9 @@ public class UweAccommodationViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cleaningStatusChoiceBox.getItems().addAll(cleaningStatusList);
         occupancyStatusChoiceBox.getItems().addAll(occupancyStatusList);
+
+        textLeaseNumber.setTextFormatter(new TextFormatter<Integer>(new IntegerStringConverter(), 0, intValidationFormatter));
+        textRoomPrice.setTextFormatter(new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleValidationFormatter));
 
         colLeaseNumber.setCellValueFactory(new PropertyValueFactory<>("LeaseNumber"));
         colHallName.setCellValueFactory(new PropertyValueFactory<>("HallName"));
@@ -200,9 +206,8 @@ public class UweAccommodationViewController implements Initializable {
                     "and a desk and chair")
     );
 
-
-
     public void buttonApply(ActionEvent actionEvent) {
+
         Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
                 Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),occupancyStatusChoiceBox.getValue().toString(),cleaningStatusChoiceBox.getValue().toString(),
                 Double.parseDouble(textRoomPrice.getText()),textRoomDes.getText());
@@ -241,11 +246,25 @@ public class UweAccommodationViewController implements Initializable {
 
     }
 
-    public TableRow<Product> getSelectedRow() {
-        return selectedRow;
-    }
+    UnaryOperator<TextFormatter.Change> intValidationFormatter = change -> {
+        if (!change.getText().matches("\\d+")) {
+            change.setText(""); //else make no change
+            change.setRange(    //don't remove any selected text either.
+                    change.getRangeStart(),
+                    change.getRangeStart()
+            );
+        }
+        return change; //if change is a number
+    };
 
-    public void setSelectedRow(TableRow<Product> selectedRow) {
-        this.selectedRow = selectedRow;
-    }
+    UnaryOperator<TextFormatter.Change> doubleValidationFormatter = change -> {
+        if (!change.getText().matches("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?")) {
+            change.setText(""); //else make no change
+            change.setRange(    //don't remove any selected text either.
+                    change.getRangeStart(),
+                    change.getRangeStart()
+            );
+        }
+        return change; //if change is a number
+    };
 }

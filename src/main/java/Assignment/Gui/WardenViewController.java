@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -191,8 +190,6 @@ public class WardenViewController implements Initializable {
             new Product(0,"Waterside", 3,80,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
-
-
 
     public void buttonApply(ActionEvent actionEvent) {
         Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
