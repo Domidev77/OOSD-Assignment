@@ -12,9 +12,6 @@ import java.io.IOException;
 
 public class LoginController {
 
-    public LoginController(){
-
-    }
     @FXML
     private Button buttonLogin;
     @FXML
@@ -23,6 +20,9 @@ public class LoginController {
     private TextField username;
     @FXML
     private PasswordField password;
+
+    public LoginController(){
+    }
 
     public void loginButton(ActionEvent event)throws IOException {
         checkLogin();

@@ -5,14 +5,12 @@ import Assignment.Model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -71,31 +69,25 @@ public class ManagerViewController implements Initializable {
         colOccupancyStatus.setCellFactory(TextFieldTableCell.forTableColumn());
         textRoomDes.setWrapText(true);
 
-        tableview.setRowFactory(new Callback<TableView<Product>, TableRow<Product>>() {
-            @Override
-            public TableRow<Product> call(TableView<Product> productTableView) {
-                final TableRow<Product> row = new TableRow<>();
+        tableview.setRowFactory(productTableView -> {
+            final TableRow<Product> row = new TableRow<>();
 
-                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        final int i = row.getIndex();
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+                final int i = row.getIndex();
 
-                        // If user clicked on selected row within range
-                        if (i >= 0 && i < tableview.getItems().size() && tableview.getSelectionModel().isSelected(i)) {
+                // If user clicked on selected row within range
+                if (i >= 0 && i < tableview.getItems().size() && tableview.getSelectionModel().isSelected(i)) {
 
-                            tableview.getSelectionModel().clearSelection();
-                            clearDisplayedItems();
-                            mouseEvent.consume();
-                        }
-                        // If user clicked on unselected row within range
-                        else if (i >= 0 && i < tableview.getItems().size()) {
-                            processSelectedRow(row);
-                        }
-                    }
-                });
-                return row;
-            }
+                    tableview.getSelectionModel().clearSelection();
+                    clearDisplayedItems();
+                    mouseEvent.consume();
+                }
+                // If user clicked on unselected row within range
+                else if (i >= 0 && i < tableview.getItems().size()) {
+                    processSelectedRow(row);
+                }
+            });
+            return row;
         });
     }
 
@@ -115,7 +107,7 @@ public class ManagerViewController implements Initializable {
         textHallName.setDisable(true);
         textHallNumber.setDisable(true);
         textRoomNum.setDisable(true);
-        textRoomPrice.setDisable(true);
+
 
         if (product.getCleaningStatus() == "Offline"){
             textLeaseNumber.setDisable(true);
@@ -140,7 +132,7 @@ public class ManagerViewController implements Initializable {
         textRoomNum.setText("");
         textStudentName.setText("");
         occupancyStatusChoiceBox.setValue("");
-        textCleaningStatus.setText("");
+        textCleaningStatus.setText("Dirty");
         textRoomPrice.setText("");
         textRoomDes.setText("");
 
@@ -151,7 +143,18 @@ public class ManagerViewController implements Initializable {
                 Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),occupancyStatusChoiceBox.getValue().toString(),textCleaningStatus.getText(),
                 Double.parseDouble(textRoomPrice.getText()),textRoomDes.getText());
 
-        tableview.getItems().set(selectedRow.getIndex(), product);
+        if(occupancyStatusChoiceBox.getValue() == "Unoccupied"){
+            product.setLeaseNumber(0);
+            product.setStudentName("");
+        }
+
+        if(selectedRow != null){
+            tableview.getItems().set(selectedRow.getIndex(), product);
+        }
+        else {
+            tableview.getItems().add(product);
+        }
+
         clearDisplayedItems();
     }
 
@@ -211,11 +214,21 @@ public class ManagerViewController implements Initializable {
                     "and a desk and chair"),
             new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(10,"Waterside", 3,1,"Kim Perry","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+            new Product(10,"Waterside", 3,10,"Kim Perry","Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"Waterside", 3,2,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"Waterside", 3,20,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(20,"Waterside", 3,3,"John Crown","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+            new Product(20,"Waterside", 3,30,"John Crown","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,40,"","Unoccupied","Dirty",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,50,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,60,"Allison Goodall","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,70,"Jennifer Barlow","Occupied","Clean",500,"A single room with a bed, wardrobe" +
+                    "and a desk and chair"),
+            new Product(0,"Waterside", 3,80,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
 }
