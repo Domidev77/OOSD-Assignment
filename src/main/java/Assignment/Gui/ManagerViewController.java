@@ -13,11 +13,19 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  *
@@ -56,9 +64,6 @@ public class ManagerViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         occupancyStatusChoiceBox.getItems().addAll(occupancyStatusList);
-
-        textLeaseNumber.setTextFormatter(new TextFormatter<Integer>(new IntegerStringConverter(), 0, intValidationFormatter));
-        textRoomPrice.setTextFormatter(new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleValidationFormatter));
 
         colLeaseNumber.setCellValueFactory(new PropertyValueFactory<>("LeaseNumber"));
         colHallName.setCellValueFactory(new PropertyValueFactory<>("HallName"));
@@ -146,9 +151,44 @@ public class ManagerViewController implements Initializable {
     }
 
     public void buttonApply(ActionEvent actionEvent) {
-        Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
+
+        // Validate lease number
+        //-----------------------------------------------
+        int leaseNumber;
+        try {
+            leaseNumber = Integer.parseInt(textLeaseNumber.getText());
+        }
+        catch (Exception e){
+            showErrorMessage("Lease number is invalid");
+            return;
+        }
+
+        if(leaseNumber <= 0  && occupancyStatusChoiceBox.getValue() == "Occupied"){
+            showErrorMessage("Lease number cannot be negative or zero");
+            return;
+        }
+        //-----------------------------------------------
+
+        // Validate room price
+        //-----------------------------------------------
+        double roomPrice;
+        try {
+            roomPrice = Double.parseDouble(textRoomPrice.getText());
+        }
+        catch (Exception e){
+            showErrorMessage("Price is invalid");
+            return;
+        }
+
+        if(roomPrice <= 0){
+            showErrorMessage("Price cannot be negative or zero");
+            return;
+        }
+        //-----------------------------------------------
+
+        Product product = new Product(leaseNumber,textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
                 Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),occupancyStatusChoiceBox.getValue().toString(),textCleaningStatus.getText(),
-                Double.parseDouble(textRoomPrice.getText()),textRoomDes.getText());
+                roomPrice,textRoomDes.getText());
 
         if(occupancyStatusChoiceBox.getValue() == "Unoccupied"){
             product.setLeaseNumber(0);
@@ -189,7 +229,14 @@ public class ManagerViewController implements Initializable {
         product.setOccupancyStatus(productStringCellEditEvent.getNewValue());
     }
 
+    public static void showErrorMessage(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("DevLaunch Dialog");
+        alert.setHeaderText("An error has been encountered");
+        alert.setContentText(message);//from   www  .  ja va  2 s  .com
 
+        alert.showAndWait();
+    }
 
     ObservableList<Product> observableList = FXCollections.observableArrayList(
             new Product(1, "WallCourt", 2, 1, "Anne Clarke",
@@ -207,7 +254,7 @@ public class ManagerViewController implements Initializable {
                     "and a desk and chair"),
             new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"WallCourt", 2,7,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"WallCourt", 2,7,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
@@ -219,7 +266,7 @@ public class ManagerViewController implements Initializable {
                     "and a desk and chair"),
             new Product(0,"Waterside", 3,40,"","Unoccupied","Dirty",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"Waterside", 3,50,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"Waterside", 3,50,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"Waterside", 3,60,"Allison Goodall","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
@@ -228,26 +275,4 @@ public class ManagerViewController implements Initializable {
             new Product(0,"Waterside", 3,80,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
-
-    UnaryOperator<TextFormatter.Change> intValidationFormatter = change -> {
-        if (!change.getText().matches("\\d+")) {
-            change.setText(""); //else make no change
-            change.setRange(    //don't remove any selected text either.
-                    change.getRangeStart(),
-                    change.getRangeStart()
-            );
-        }
-        return change; //if change is a number
-    };
-
-    UnaryOperator<TextFormatter.Change> doubleValidationFormatter = change -> {
-        if (!change.getText().matches("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?")) {
-            change.setText(""); //else make no change
-            change.setRange(    //don't remove any selected text either.
-                    change.getRangeStart(),
-                    change.getRangeStart()
-            );
-        }
-        return change; //if change is a number
-    };
 }

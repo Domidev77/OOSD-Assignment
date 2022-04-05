@@ -3,12 +3,11 @@ package Assignment.Gui;
 import Assignment.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
 
@@ -35,6 +34,14 @@ public class LoginController {
             processLogin();
         }
     }
+    public static void showErrorPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("An error has occurred");
+        alert.setContentText(message);//ww  w . j  a  va2s  .  co  m
+
+        alert.showAndWait();
+    }
 
     public void processLogin() throws IOException{
         Main m = new Main();
@@ -57,6 +64,7 @@ public class LoginController {
             wrongLogin.setText("Please enter your data");
         }
         else {
+            showErrorPopup("Wrong username or password!");
             wrongLogin.setText("Wrong username or password!");
         }
     }

@@ -61,9 +61,6 @@ public class UweAccommodationViewController implements Initializable {
         cleaningStatusChoiceBox.getItems().addAll(cleaningStatusList);
         occupancyStatusChoiceBox.getItems().addAll(occupancyStatusList);
 
-        textLeaseNumber.setTextFormatter(new TextFormatter<Integer>(new IntegerStringConverter(), 0, intValidationFormatter));
-        textRoomPrice.setTextFormatter(new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleValidationFormatter));
-
         colLeaseNumber.setCellValueFactory(new PropertyValueFactory<>("LeaseNumber"));
         colHallName.setCellValueFactory(new PropertyValueFactory<>("HallName"));
         colHallNumber.setCellValueFactory(new PropertyValueFactory<>("HallNumber"));
@@ -154,20 +151,6 @@ public class UweAccommodationViewController implements Initializable {
 
     }
 
-
-    public void selectedNewTableRow(Product row){
-        textLeaseNumber.setText(String.valueOf(row.getLeaseNumber()));
-        textHallName.setText(row.getHallName());
-        textHallNumber.setText(String.valueOf(row.getHallNumber()));
-        textRoomNum.setText(String.valueOf(row.getRoomNumber()));
-        textStudentName.setText(row.getStudentName());
-        occupancyStatusChoiceBox.setValue(row.getOccupancyStatus());
-        cleaningStatusChoiceBox.setValue(row.getCleaningStatus());
-        textRoomPrice.setText(String.valueOf(row.getRoomPrice()));
-        textRoomDes.setText(row.getRoomDescription());
-
-    }
-
     ObservableList<Product> observableList = FXCollections.observableArrayList(
             new Product(1, "WallCourt", 2, 1, "Albert Duff",
                     "Occupied", "Clean", 500, "A single room with a bed, wardrobe" +
@@ -184,7 +167,7 @@ public class UweAccommodationViewController implements Initializable {
                     "and a desk and chair"),
             new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"WallCourt", 2,7,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"WallCourt", 2,7,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
@@ -196,7 +179,7 @@ public class UweAccommodationViewController implements Initializable {
                     "and a desk and chair"),
             new Product(0,"Waterside", 3,40,"","Unoccupied","Dirty",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"Waterside", 3,50,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"Waterside", 3,50,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"Waterside", 3,60,"Allison Goodall","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
@@ -208,9 +191,43 @@ public class UweAccommodationViewController implements Initializable {
 
     public void buttonApply(ActionEvent actionEvent) {
 
-        Product product = new Product(Integer.parseInt(textLeaseNumber.getText()),textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
+        // Validate lease number
+        //-----------------------------------------------
+        int leaseNumber;
+        try {
+            leaseNumber = Integer.parseInt(textLeaseNumber.getText());
+        }
+        catch (Exception e){
+            showErrorMessage("Lease number is invalid");
+            return;
+        }
+
+        if(leaseNumber <= 0  && occupancyStatusChoiceBox.getValue() == "Occupied"){
+            showErrorMessage("Lease number cannot be negative or zero");
+            return;
+        }
+        //-----------------------------------------------
+
+        // Validate room price
+        //-----------------------------------------------
+        double roomPrice;
+        try {
+            roomPrice = Double.parseDouble(textRoomPrice.getText());
+        }
+        catch (Exception e){
+            showErrorMessage("Price is invalid");
+            return;
+        }
+
+        if(roomPrice <= 0){
+            showErrorMessage("Price cannot be negative or zero");
+            return;
+        }
+        //-----------------------------------------------
+
+        Product product = new Product(leaseNumber,textHallName.getText(),Integer.parseInt(textHallNumber.getText()),
                 Integer.parseInt(textRoomNum.getText()),textStudentName.getText(),occupancyStatusChoiceBox.getValue().toString(),cleaningStatusChoiceBox.getValue().toString(),
-                Double.parseDouble(textRoomPrice.getText()),textRoomDes.getText());
+                roomPrice,textRoomDes.getText());
 
         if(occupancyStatusChoiceBox.getValue() == "Unoccupied"){
             product.setLeaseNumber(0);
@@ -235,6 +252,15 @@ public class UweAccommodationViewController implements Initializable {
         clearDisplayedItems();
     }
 
+    public static void showErrorMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("DevLaunch Dialog");
+        alert.setHeaderText("An error has been encountered");
+        alert.setContentText(message);//from   www  .  ja va  2 s  .com
+
+        alert.showAndWait();
+    }
+
     public void logoutButton(ActionEvent event)throws IOException {
         Main m = new Main();
         m.changeScene("LoginPage.fxml");
@@ -245,26 +271,4 @@ public class UweAccommodationViewController implements Initializable {
         product.setOccupancyStatus(productStringCellEditEvent.getNewValue());
 
     }
-
-    UnaryOperator<TextFormatter.Change> intValidationFormatter = change -> {
-        if (!change.getText().matches("\\d+")) {
-            change.setText(""); //else make no change
-            change.setRange(    //don't remove any selected text either.
-                    change.getRangeStart(),
-                    change.getRangeStart()
-            );
-        }
-        return change; //if change is a number
-    };
-
-    UnaryOperator<TextFormatter.Change> doubleValidationFormatter = change -> {
-        if (!change.getText().matches("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?")) {
-            change.setText(""); //else make no change
-            change.setRange(    //don't remove any selected text either.
-                    change.getRangeStart(),
-                    change.getRangeStart()
-            );
-        }
-        return change; //if change is a number
-    };
 }

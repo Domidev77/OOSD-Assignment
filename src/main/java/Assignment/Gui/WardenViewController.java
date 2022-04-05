@@ -141,18 +141,6 @@ public class WardenViewController implements Initializable {
         textRoomDes.setText("");
     }
 
-    public void selectedNewTableRow(Product row){
-        textLeaseNumber.setText(String.valueOf(row.getLeaseNumber()));
-        textHallName.setText(row.getHallName());
-        textHallNumber.setText(String.valueOf(row.getHallNumber()));
-        textRoomNum.setText(String.valueOf(row.getRoomNumber()));
-        textStudentName.setText(row.getStudentName());
-        textOccupancyStatus.setText(row.getOccupancyStatus());
-        cleaningStatusChoiceBox.setValue(row.getCleaningStatus());
-        textRoomPrice.setText(String.valueOf(row.getRoomPrice()));
-        textRoomDes.setText(row.getRoomDescription());
-    }
-
     ObservableList<Product> observableList = FXCollections.observableArrayList(
             new Product(1, "WallCourt", 2, 1, "Albert Dover",
                     "Occupied", "Clean", 500, "A single room with a bed, wardrobe" +
@@ -169,7 +157,7 @@ public class WardenViewController implements Initializable {
                     "and a desk and chair"),
             new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"WallCourt", 2,7,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"WallCourt", 2,7,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
@@ -181,7 +169,7 @@ public class WardenViewController implements Initializable {
                     "and a desk and chair"),
             new Product(0,"Waterside", 3,40,"","Unoccupied","Dirty",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
-            new Product(0,"Waterside", 3,50,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
+            new Product(0,"Waterside", 3,50,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
             new Product(0,"Waterside", 3,60,"Allison Goodall","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair"),
