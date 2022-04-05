@@ -4,17 +4,16 @@ public class Room {
 
     int roomNumber;
     double roomPrice;
-    boolean occupancyStatus;
     String cleaningStatus;
     String roomDescription;
     Lease lease;
 
-    Room(int roomNumber, double roomPrice, boolean occupancyStatus, String cleaningStatus, String roomDescription){
+    public Room(int roomNumber, double roomPrice, String cleaningStatus, String roomDescription, Lease lease){
         this.roomNumber = roomNumber;
         this.roomPrice = roomPrice;
-        this.occupancyStatus = occupancyStatus;
         this.cleaningStatus = cleaningStatus;
         this.roomDescription = roomDescription;
+        this.lease = lease;
     }
 
     public void setRoomNumber(int roomNumber){
@@ -23,10 +22,6 @@ public class Room {
 
     public void setRoomPrice(double roomPrice){
         this.roomPrice = roomPrice;
-    }
-
-    public void setOccupancyStatus(boolean occupancyStatus){
-        this.occupancyStatus = occupancyStatus;
     }
 
     public void setCleaningStatus(String cleaningStatus){
@@ -45,9 +40,7 @@ public class Room {
         return roomPrice;
     }
 
-    public boolean getOccupancyStatus(){
-        return occupancyStatus;
-    }
+    public boolean getOccupancyStatus(){ return lease != null; }
 
     public String getCleaningStatus(){
         return cleaningStatus;

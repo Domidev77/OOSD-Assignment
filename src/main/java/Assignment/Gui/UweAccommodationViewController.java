@@ -1,5 +1,4 @@
 package Assignment.Gui;
-
 import Assignment.Main;
 import Assignment.Model.Product;
 import javafx.collections.FXCollections;
@@ -11,13 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 /**
  *
@@ -188,6 +183,8 @@ public class UweAccommodationViewController implements Initializable {
             new Product(0,"Waterside", 3,80,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
                     "and a desk and chair")
     );
+
+
 
     public void buttonApply(ActionEvent actionEvent) {
 

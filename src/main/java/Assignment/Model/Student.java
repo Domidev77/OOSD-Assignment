@@ -5,7 +5,7 @@ public class Student {
     String studentName;
     int studentId;
 
-    Student(String studentName, int studentId){
+    public Student(String studentName, int studentId){
         this.studentName = studentName;
         this.studentId = studentId;
     }

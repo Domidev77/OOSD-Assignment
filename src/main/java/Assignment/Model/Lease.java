@@ -4,15 +4,11 @@ public class Lease {
 
     int leaseNumber;
     int durationOfTheLeaseInMonths;
-    String hallAddress;
-    int roomNumber;
     Student student;
 
-    Lease(int leaseNumber, int durationOfTheLeaseInMonths, String hallAddress, int roomNumber, Student student){
+    public Lease(int leaseNumber, int durationOfTheLeaseInMonths, Student student){
         this.leaseNumber = leaseNumber;
         this.durationOfTheLeaseInMonths = durationOfTheLeaseInMonths;
-        this.hallAddress = hallAddress;
-        this.roomNumber = roomNumber;
         this.student = student;
     }
 
@@ -30,14 +26,6 @@ public class Lease {
 
     public int getDurationOfTheLease(){
         return durationOfTheLeaseInMonths;
-    }
-
-    public String getHallAddress(){
-        return hallAddress;
-    }
-
-    public int getRoomNumber(){
-        return roomNumber;
     }
 
 }

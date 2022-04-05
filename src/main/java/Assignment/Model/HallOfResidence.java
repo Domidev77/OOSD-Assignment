@@ -1,5 +1,4 @@
 package Assignment.Model;
-
 import java.util.List;
 
 public class HallOfResidence {
@@ -7,16 +6,17 @@ public class HallOfResidence {
     int hallNumber;
     String hallName;
     String hallAddress;
-    int hallTelephoneNumber;
+    String hallTelephoneNumber;
     HallWarden hallWarden;
     List<Room> rooms;
 
-    HallOfResidence(int hallNumber, String hallName, String hallAddress, int hallTelephoneNumber, HallWarden hallWarden){
+    public HallOfResidence(int hallNumber, String hallName, String hallAddress, String hallTelephoneNumber, HallWarden hallWarden, List<Room> rooms){
         this.hallNumber = hallNumber;
         this.hallName = hallName;
         this.hallAddress = hallAddress;
         this.hallTelephoneNumber = hallTelephoneNumber;
         this.hallWarden = hallWarden;
+        this.rooms = rooms;
     }
 
     public int getHallNumber(){
@@ -31,7 +31,7 @@ public class HallOfResidence {
         return hallAddress;
     }
 
-    public int getHallTelephoneNumber(){
+    public String getHallTelephoneNumber(){
         return hallTelephoneNumber;
     }
 
