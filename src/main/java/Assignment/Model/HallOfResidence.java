@@ -35,4 +35,6 @@ public class HallOfResidence {
         return hallTelephoneNumber;
     }
 
+    public List<Room> getRooms() { return rooms; }
+
 }

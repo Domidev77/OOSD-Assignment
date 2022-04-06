@@ -1,5 +1,6 @@
 package Assignment.Gui;
 
+import Assignment.Data.AccommodationData;
 import Assignment.Main;
 import Assignment.Model.Product;
 import javafx.collections.FXCollections;
@@ -8,24 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 /**
  *
@@ -60,6 +51,8 @@ public class ManagerViewController implements Initializable {
     public TextArea textRoomDes;
 
     private TableRow<Product> selectedRow;
+
+    ObservableList<Product> observableList = new AccommodationData().loadData();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -132,7 +125,6 @@ public class ManagerViewController implements Initializable {
             occupancyStatusChoiceBox.setDisable(false);
 
         }
-
     }
 
     public void clearDisplayedItems() {
@@ -237,42 +229,4 @@ public class ManagerViewController implements Initializable {
 
         alert.showAndWait();
     }
-
-    ObservableList<Product> observableList = FXCollections.observableArrayList(
-            new Product(1, "WallCourt", 2, 1, "Anne Clarke",
-                    "Occupied", "Clean", 500, "A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(2,"WallCourt",2,2,"Tom Smith",
-                    "Occupied","Clean",550,"A single room with a bed" +
-                    "desk and chair and a window view"),
-            new Product(3,"WallCourt",2,3,"Kate Jones",
-                    "Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"WallCourt", 2,4,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(4,"WallCourt", 2,5,"Connor Miller","Occupied","Dirty",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"WallCourt", 2,7,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(10,"Waterside", 3,10,"Kim Perry","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,20,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(20,"Waterside", 3,30,"John Crown","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,40,"","Unoccupied","Dirty",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,50,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,60,"Allison Goodall","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,70,"Jennifer Barlow","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,80,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair")
-    );
 }

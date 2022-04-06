@@ -23,4 +23,8 @@ public class StudentAccommodationOffice extends All {
 
         return totalNumberOfRooms;
     }
+
+    public HallManager getHallManager() { return hallManager; }
+
+    public List<HallOfResidence> getHallOfResidences() { return hallOfResidences; }
 }

@@ -1,4 +1,6 @@
 package Assignment.Gui;
+
+import Assignment.Data.AccommodationData;
 import Assignment.Main;
 import Assignment.Model.Product;
 import javafx.collections.FXCollections;
@@ -10,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,6 +53,8 @@ public class UweAccommodationViewController implements Initializable {
     public Button buttonLogout;
 
     private TableRow<Product> selectedRow;
+
+    ObservableList<Product> observableList = new AccommodationData().loadData();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -145,46 +150,6 @@ public class UweAccommodationViewController implements Initializable {
         textRoomDes.setText("");
 
     }
-
-    ObservableList<Product> observableList = FXCollections.observableArrayList(
-            new Product(1, "WallCourt", 2, 1, "Albert Duff",
-                    "Occupied", "Clean", 500, "A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(2,"WallCourt",2,2,"Tom Smith",
-                    "Occupied","Clean",550,"A single room with a bed" +
-                    "desk and chair and a window view"),
-            new Product(3,"WallCourt",2,3,"Kate Jones",
-                    "Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"WallCourt", 2,3,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
-            "and a desk and chair"),
-            new Product(4,"WallCourt", 2,5,"Connor Miller","Occupied","Dirty",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(5,"WallCourt", 2,6,"George Gay","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"WallCourt", 2,7,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"WallCourt", 2,8,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(10,"Waterside", 3,1,"Kim Perry","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,2,"","Unoccupied","Offline",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(20,"Waterside", 3,3,"John Crown","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,40,"","Unoccupied","Dirty",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,50,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,60,"Allison Goodall","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,70,"Jennifer Barlow","Occupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair"),
-            new Product(0,"Waterside", 3,80,"","Unoccupied","Clean",500,"A single room with a bed, wardrobe" +
-                    "and a desk and chair")
-    );
-
-
 
     public void buttonApply(ActionEvent actionEvent) {
 

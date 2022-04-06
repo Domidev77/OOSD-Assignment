@@ -28,4 +28,8 @@ public class Lease {
         return durationOfTheLeaseInMonths;
     }
 
+    public Student getStudent(){
+        return student;
+    }
+
 }
